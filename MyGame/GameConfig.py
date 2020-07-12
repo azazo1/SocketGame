@@ -45,6 +45,7 @@ class GameBasic(GameConfig):
     def close(self):
         print('Game closed.')
         self.alive = False
+        pygame.quit()
 
 
 class ServerGameBasic(GameBasic):

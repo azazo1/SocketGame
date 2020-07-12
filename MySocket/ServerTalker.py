@@ -3,7 +3,8 @@ import json
 import socket
 
 from MySocket.SocketConfig import ServerBasic, ClientBasic
-
+import traceback
+import sys
 
 class ServerTalker(socket.socket, ServerBasic):
     def __init__(self):
@@ -40,17 +41,20 @@ class ServerTalker(socket.socket, ServerBasic):
 
     def receive_all(self) -> dict:
         get_dict = {}
+        self.pop_clients()
         for name, client in self.clients_dict.items():
             client: ClientHelper
             get_dict[name] = json.loads(client.receive())
-        self.pop_clients()
         return get_dict
 
     def all_send(self, data: bytes) -> list:
         get_list = []
         for name, client in self.clients_dict.items():
             client: ClientHelper
-            get_list.append(client.once_send(data))
+            try:
+                get_list.append(client.once_send(data))
+            except:
+                client.close()
         return get_list
 
     def one_send(self, client_name: str, data: bytes) -> int:

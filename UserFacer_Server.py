@@ -9,10 +9,10 @@ class UserFacer:
     def go(self):
         a = Game()
         try:
-            a.get_client('b')
             a.game_loop()
         finally:
             a.close()
+
 
 
 if __name__ == '__main__':

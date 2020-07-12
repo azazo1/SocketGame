@@ -4,6 +4,7 @@ import pygame
 import time
 
 class UserFacer:
+
     def __init__(self):
         pass
 

@@ -64,7 +64,8 @@ class ServerGame(ServerGameBasic):
             self.server.all_send(self.encode_data(self.message.get_all()))
 
             for name, data in self.message.dict.items():
-                pygame.draw.rect(root, data['color'], data['rect'])
+                if name in self.server.clients_dict.keys() or name == self.name:
+                    pygame.draw.rect(root, data['color'], data['rect'])
 
             self.clock.tick(self.fps)
             pygame.display.update()
